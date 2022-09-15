@@ -1,5 +1,8 @@
 <template>
   <view>
+    <!-- 使用自定义的搜索组件 -->
+    <my-search @click="gotoSearch"></my-search>
+
     <view class="scroll-view-container">
       <!-- 左侧的滑动区域 -->
       <scroll-view class="left-scroll-view" scroll-y :style="{ height: wh + 'px' }">
@@ -10,7 +13,7 @@
       <!-- 右侧滑动区域 -->
       <scroll-view class="right-scroll-view" scroll-y :style="{ height: wh + 'px' }" :scroll-top="scrollTop">
         <!-- 二级标题 -->
-        <view class="cate-lv2" v-for="(item2, index2) in cateLevel2">
+        <view class="cate-lv2" v-for="(item2, index2) in cateLevel2" :key="index2">
           <view class="cate-lv2-title">/ {{ item2.cat_name }} /</view>
 
           <!-- 三级分类 item 项 -->
@@ -50,12 +53,20 @@ export default {
     const sysInfo = uni.getSystemInfoSync();
     console.log('sysInfo', sysInfo);
     // 1.2 获取到可用的高度，赋值给data里的 wh
-    this.wh = sysInfo.windowHeight;
+    this.wh = sysInfo.windowHeight - 50;
 
     // 调用获取分类列表数据的方法
     this.getCateList();
   },
   methods: {
+    // 点击搜索触发事件
+    gotoSearch() {
+      console.log('ok');
+      // 跳转到search、页面
+      uni.navigateTo({
+        url: '/subpkg/search/search'
+      });
+    },
     // 获取分类数据
     async getCateList() {
       const { data: res } = await uni.$http.get('/api/public/v1/categories');
