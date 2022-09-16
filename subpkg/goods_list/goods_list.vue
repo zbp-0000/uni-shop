@@ -40,7 +40,9 @@ export default {
     this.getGoodsList();
   },
   methods: {
+    // 点击商品处理函数
     gotoDetail(item) {
+      // 跳转到商品详情
       uni.navigateTo({
         url: '/subpkg/goods_detail/goods_detail?goods_id=' + item.goods_id
       });
