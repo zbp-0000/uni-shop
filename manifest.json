@@ -58,7 +58,8 @@
     "usingComponents": true,
     "unipush": {
       "enable": true
-    }
+    },
+    "requiredPrivateInfos": ["getLocation", "chooseLocation", "chooseAddress"]
   },
   "vueVersion": "2"
 }
