@@ -10,12 +10,22 @@ import {
 uni.$http = $http // 挂载到 uni 实例上
 // 配置请求根路径
 $http.baseUrl = 'https://api-hmugo-web.itheima.net'
+// $http.baseUrl = 'https://www.uinav.com'
+// $http.baseUrl = 'https://www.escook.cn'
 
 // 请求拦截器
 $http.beforeRequest = function(options) {
   uni.showLoading({ // 显示loading
     title: '数据加载中...'
   })
+
+  // 判断当前请求是否为有权限的接口
+  if (options.url.indexOf('/my/') !== -1) {
+    // 为请求头添加身份认证（token）
+    options.header = {
+      Authorization: store.state.m_user.token
+    }
+  }
 }
 // 响应拦截器
 $http.afterRequest = function() {
